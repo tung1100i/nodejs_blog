@@ -1,8 +1,17 @@
+const Course = require('../models/Course')
+const { multiOject } = require('../../ulti/mongoose');
 class SiteController {
 
     //GET /home
-    index(req, res) {
-        res.render('home');
+    index(req, res, next) {
+        Course.find({})
+            .then(courses => {
+
+                res.render('home', { courses: multiOject(courses) })
+
+            })
+            .catch(next);
+
     }
 
     //GET /search
